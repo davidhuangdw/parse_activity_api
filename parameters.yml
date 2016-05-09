@@ -1,0 +1,5 @@
+token: "Bearer c1a9799e25801ecb7f0b7572c86f75641eb8621e33a13c0e6b1b657d7b8a624e"
+userIds: 1519,9188
+activityCreatedAtStart: 2016=04-12
+activityCreatedAtEnd: 2016-0502
+option: "CRT"   # %w[PRODUCTIVITY,CRT,CRR]
