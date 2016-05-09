@@ -34,7 +34,7 @@ groups = group_by_user_hour(activities)
 activity_ids = present_groups(groups) do |acts|
   acts.map{|act| act['id']}.uniq
 end
-File.write(USRE_HOUR_ACTIVITY_OUTPUT_PATH, activity_ids)
+File.write(USRE_HOUR_ACTIVITY_OUTPUT_PATH, activity_ids.to_yaml)
 
 
 user_activity_count = group_by_user(activities).map do|user_id, acts|

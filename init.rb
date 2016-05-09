@@ -46,7 +46,7 @@ def fetch_all(url, options)
     items.concat body_hash['items']
     offset += limit
     count += body_hash['count']
-  end while body_hash['hasMore']
+  end while body_hash['hasMore'] && body_hash['items'].size>0
 
   {
     'totalResults' => body_hash['totalResults'],
