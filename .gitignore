@@ -3,5 +3,5 @@
 .bundle
 db/*.sqlite3
 log/*
-tmp/
 .irbrc
+conf.yml
