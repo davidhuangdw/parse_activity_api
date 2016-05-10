@@ -1,7 +1,7 @@
 api_url: http://srm-api.slc05hqd.oracle.com
 messages_path: /engage/v1/messages
 
-token: "b6b46fa788f288dcbc1ddda319140e508389f410f12c68092d853b7b7733bee5"
+token: "5fb7894bb1cf92bd4c49c529070eb73792e0a1722e2d6ad482b34b5ba6bcdff4"
 bundle_id: 4340
 user_ids:
   - 1519
@@ -9,3 +9,5 @@ user_ids:
 activity_created_at_start: 2016-04-17
 activity_created_at_end: 2016-05-15
 activity_type: respond
+output_raw_data: true
+response_time_goal: 300
