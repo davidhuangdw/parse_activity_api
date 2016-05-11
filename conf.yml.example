@@ -11,8 +11,6 @@ activity_created_at_start: 2016-04-17
 activity_created_at_end: 2016-05-15
 activity_type: respond
 
-posted_at_start: 2016-04-17
-posted_at_end: 2016-05-15
-
 output_raw_data: true
 response_time_goal: 300
+total_internal_reply_count: 10000

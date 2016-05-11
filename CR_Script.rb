@@ -134,8 +134,14 @@ end
 def get_response_time(activities)
   respond_result= {}
   activities.each do |act|
-    reply_time = act['reply'].nil? ? act['createdAt'].to_time : act['reply']['postedAt'].to_time
-    target_time = act['parentReply'].nil? ? act['root_message']['postedAt'].to_time : act['parentReply']['postedAt'].to_time
+    if act['type'] == 'label'
+      reply_time = act['createdAt'].to_time
+      target_time = (act['reply'] || act['root_message'])['postedAt'].to_time
+    else
+      reply_time = act['reply']['postedAt'].to_time
+      target_time = (act['parentReply'] || act['root_message'])['postedAt'].to_time
+    end
+
     respond_time = reply_time - target_time
     key = act['root_message']['id']
     item = {
@@ -255,18 +261,11 @@ puts '========================='
 activities = message_result.values.flat_map(&method(:parse_activities))
 # activities = ACTIVITY_TYPES.flat_map(&method(:collect_activities))
 
-params = {
-  bundleId: config[:bundle_id],
-  postedAtStart: config[:posted_at_start].to_date.to_s,
-  postedAtEnd: config[:posted_at_end].to_date.to_s,
-}
-msg_cnt_url = File.join(config[:api_url], config[:messages_count_path])
-resp = make_request(msg_cnt_url, params: params, headers: headers)
-total_messages_count = JSON.parse(resp.body)['count']
-
-respond_activities = activities.select{|act| act['type'] == 'respond'}
+# respond_activities = activities.select{|act| act['type'] == 'respond'}
+respond_activities = activities
+total_count = config[:total_internal_reply_count]
 respond_ratios = group_by_user(respond_activities).map do |user_id, acts|
-  [user_id, acts.size.to_f/total_messages_count]
+  [user_id, acts.size.to_f/total_count]
 end.to_h
 
 puts '========================='
