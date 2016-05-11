@@ -132,19 +132,33 @@ end
 # To be modified
 
 def get_response_time(activities)
-  respond_time = activities.map do |act|
+  respond_result= {}
+  activities.each do |act|
     reply_time = act['reply'].nil? ? act['createdAt'].to_time : act['reply']['postedAt'].to_time
     target_time = act['parentReply'].nil? ? act['root_message']['postedAt'].to_time : act['parentReply']['postedAt'].to_time
-    reply_time - target_time
+    respond_time = reply_time - target_time
+    key = act['root_message']['id']
+    item = {
+      activity_id: act['id'],
+      respond_time: respond_time
+    }
+    respond_result[key] = [] unless respond_result.has_key?(key)
+    respond_result[key] << item
   end
 
+  respond_stats = respond_result.map do |message_id, respond_array|
+    item ={
+      message_id: message_id,
+    }
+    item[:respond_count] = respond_array.count
+    item[:first_respond_activity] = respond_array.sort do |x,y|
+      x['respond_time'] <=> y['respond_time']
+    end.first
+    item
+  end
 
-  avg_respond_time = respond_time.reduce(:+).to_f / respond_time.size
-
-  {
-    avg: avg_respond_time,
-    respond_time: respond_time
-  }
+  #can be massaged more to given high level statistics 
+  respond_stats
 
 end
 
