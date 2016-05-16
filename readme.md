@@ -6,9 +6,20 @@
 
 1. setup config:
 
-    cp conf.yml.example conf.yml
+ ```bash
+cp conf.yml.example conf.yml
+```
 
-2. fetch activities and calculate kpi metrics:
+2. edit 'user_ids' in conf.yml:
 
-    ruby CR_Script.rb
+ ```bash
+ruby fetch_bundle_users.rb
+# then, change 'user_ids' in conf.yml accordingly
+```
+
+3. fetch activities and calculate kpi metrics:
+
+ ```bash
+ruby CR_Script.rb
+```
 

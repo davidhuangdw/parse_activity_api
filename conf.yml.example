@@ -1,6 +1,7 @@
 api_url: http://srm-api.slc05hqd.oracle.com
 messages_path: /engage/v1/messages
 messages_count_path: /engage/v1/messages/count
+users_path: /admin/v1/accounts/:account_id/users
 
 token: 34047ad43cd3cfcff3e09db3f6dba2870a2b3ea813a6e860100ccecbed4493cd
 bundle_id: 4340
