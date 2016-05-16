@@ -96,6 +96,7 @@ def get_response_time(activities)
     respond_result[key] << item
   end
 
+
   respond_stats = respond_result.map do |message_id, respond_array|
     item ={
       message_id: message_id,
@@ -104,11 +105,20 @@ def get_response_time(activities)
     item[:first_respond_activity] = respond_array.sort do |x,y|
       x['respond_time'] <=> y['respond_time']
     end.first
+
+    item[:avg_respond_time] = respond_array.inject(0.0) do |sum, el|
+      sum + el[:respond_time]
+    end.to_f / respond_array.size
+
     item
   end
 
-  #can be massaged more to given high level statistics 
-  respond_stats
+  #For now we just give the avg_time (include the DM)
+  avg_time = respond_stats.inject(0.0) do |sum, el|
+    sum + el[:avg_respond_time]
+  end
+
+  avg_time
 
 end
 
