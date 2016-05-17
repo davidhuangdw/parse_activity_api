@@ -23,6 +23,8 @@ def total_hours
       config[:activity_created_at_start].to_time)/1.hour
 end
 
+# Group the activities based on the user that take actions
+
 def group_by_user(activities)
   activities.group_by{|act| act['actor']['id'] }
 end
@@ -30,6 +32,7 @@ end
 
 #### metrics calculation helpers:
 
+# Helper method for calculate the response time for each activity object
 def response_time(act)
   if act['type'] == 'label'
     reply_time = act['createdAt']
@@ -42,8 +45,10 @@ def response_time(act)
   reply_time.to_time - target_time.to_time
 end
 
+# Helper method for calculate the average response time for a given group of activities
 def average_response_time(activities)
   return 0.0 if activities.size == 0
+  # A ruby style sum up the an array
   sum = activities.map{|act| response_time(act)}.reduce(0.0, :+)
   sum.to_f/activities.size
 end
@@ -82,6 +87,10 @@ acts = [INTERNAL_REPLY_OUTPUT_PATH, EXTERNAL_REPLY_OUTPUT_PATH].flat_map do |mes
   messages = YAML.load_file(messages_yml)
   parse_activities(messages)
 end
+
+# productivity_metric is the result of productivity
+# response_time is the result of CRT
+# response_ration is the result of CRR
 
 metrics = {
   'productivity' => productivity_metric(acts),

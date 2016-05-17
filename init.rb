@@ -8,15 +8,21 @@ PER_REQUEST_LIMIT = 100
 
 class RequestError < RuntimeError; end
 
+# Method for reading all the parameters in the conf.yml
+
 def config
   @config ||= YAML.load_file('conf.yml').with_indifferent_access
 end
+
+# Helper method for adding authentication token
 
 def default_headers
   {
     :Authorization => "Bearer "+config[:token]
   }
 end
+
+# Helper method for making http request
 
 def make_request(url, options)
   p '----making request----'
@@ -30,6 +36,10 @@ def make_request(url, options)
   end
   resp
 end
+
+
+# Method for fetching all the items when one API call doesn't return all results
+# Will trigger multiple API calls and concat the results in items.
 
 def fetch_all(url, options)
   offset = original_offset = options[:offset] || 0
@@ -84,7 +94,10 @@ end
 def fetch_full_activity_messages(params, headers=default_headers)
   url = File.join(config[:api_url], config[:messages_path])
 
+  #Fetch all messages and the response stored in the messages array
   messages = fetch_all(url, params: params, headers: headers)
+  # For each message in the messages array, the function 'expand_full_activities' is
+  # called to fetch all the activities in case one message has more than 10 activities
   messages['items'].each(&method(:expand_full_activities))
 
   messages
