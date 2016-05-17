@@ -69,7 +69,7 @@ end
 
 def response_ratio_metric(activities, total_count)
   user_response_ratios = group_by_user(activities).map do |user_id, acts|
-    [user_id, acts.size.to_f/total_count]
+    [user_id, acts.size.to_f / total_count]
   end.to_h
   user_response_ratios.merge!('all' => activities.size.to_f/total_count)
 
@@ -86,7 +86,7 @@ end
 metrics = {
   'productivity' => productivity_metric(acts),
   'response_time' => response_time_metric(acts),
-  'response_ratio' => response_ratio_metric(acts, config[:total_customer_reply_count])
+  'response_ratio' => response_ratio_metric(acts, config[:total_customer_posts])
 }
 
 File.write(METRICS_OUTPUT_PATH, metrics.to_yaml)

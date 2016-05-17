@@ -217,7 +217,7 @@ activities = message_result.values.flat_map(&method(:parse_activities))
 
 # respond_activities = activities.select{|act| act['type'] == 'respond'}
 respond_activities = activities
-total_count = config[:total_internal_reply_count]
+total_count = config[:total_customer_posts]
 respond_ratios = group_by_user(respond_activities).map do |user_id, acts|
   [user_id, acts.size.to_f/total_count]
 end.to_h
