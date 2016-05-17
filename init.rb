@@ -2,9 +2,21 @@ require 'yaml'
 require 'typhoeus'
 require 'active_support/all'
 
+INTERNAL_REPLY_OUTPUT_PATH = 'output/internal_activity_messages.yml'
+EXTERNAL_REPLY_OUTPUT_PATH = 'output/external_activity_messages.yml'
 PER_REQUEST_LIMIT = 100
 
 class RequestError < RuntimeError; end
+
+def config
+  @config ||= YAML.load_file('conf.yml').with_indifferent_access
+end
+
+def default_headers
+  {
+    :Authorization => "Bearer "+config[:token]
+  }
+end
 
 def make_request(url, options)
   p '----making request----'
@@ -45,14 +57,36 @@ def fetch_all(url, options)
   }
 end
 
-def config
-  @config ||= YAML.load_file('conf.yml').with_indifferent_access
+
+######### fetch full activity messages:
+
+def parse_link(link)
+  uri = URI.parse(link)
+  params = URI::decode_www_form(uri.query).to_h
+
+  uri.query = nil
+  url = uri.to_s
+
+  [url, params]
 end
 
-def headers
-  {
-    :Authorization => "Bearer "+config[:token]
-  }
+def expand_full_activities(msg, headers=default_headers)
+  acts = msg['activities']
+  return unless acts['hasMore']
+
+  activities_link = acts['links'].find{|link| link['rel'] == 'self'}
+  url, params = parse_link(activities_link['href'])
+
+  activities = fetch_all(url, params: params, headers: headers)
+  msg['activities'] = activities
 end
 
+def fetch_full_activity_messages(params, headers=default_headers)
+  url = File.join(config[:api_url], config[:messages_path])
+
+  messages = fetch_all(url, params: params, headers: headers)
+  messages['items'].each(&method(:expand_full_activities))
+
+  messages
+end
 

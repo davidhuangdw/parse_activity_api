@@ -1,17 +1,19 @@
-api_url: http://srm-api.slc05hqd.oracle.com
+api_url: https://public-api.srm-staging.pp1.oraclecloud.com/ #http://srm-api.slc05hqd.oracle.com
 messages_path: /engage/v1/messages
-messages_count_path: /engage/v1/messages/count
 users_path: /admin/v1/accounts/:account_id/users
 
-token: 34047ad43cd3cfcff3e09db3f6dba2870a2b3ea813a6e860100ccecbed4493cd
+token: 622a1f6629118afcf6869eae8ab8291d3fb0b870fbd86145f7979ada16e1a79b
 bundle_id: 4340
 user_ids:
   - 1519
   - 9188
-activity_created_at_start: 2016-04-17
-activity_created_at_end: 2016-05-15
-activity_type: respond
+activity_created_at_start: 2016-04-20
+activity_created_at_end: 2016-05-17
+activity_type: xxx
 
-output_raw_data: true
+ci_labels:
+  - 'test3'
+  - '0513'
+
 response_time_goal: 300
-total_internal_reply_count: 10000
+total_customer_reply_count: 10000
