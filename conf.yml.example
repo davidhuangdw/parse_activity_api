@@ -2,7 +2,7 @@ api_url: https://public-api.srm-staging.pp1.oraclecloud.com/ #http://srm-api.slc
 messages_path: /engage/v1/messages
 users_path: /admin/v1/accounts/:account_id/users
 
-token: 622a1f6629118afcf6869eae8ab8291d3fb0b870fbd86145f7979ada16e1a79b
+token: 3103db6b7ef5bf186f901f6aba9d7d35ed9bf9ee415c4827ac55838e4be6ecab
 bundle_id: 4340
 user_ids:
   - 1519
@@ -11,9 +11,9 @@ activity_created_at_start: 2016-04-20
 activity_created_at_end: 2016-05-17
 activity_type: xxx
 
-ci_labels:
+labels:       # only for fetching external reply(e.g. ci_message reply)
   - 'test3'
   - '0513'
 
 response_time_goal: 300
-total_customer_reply_count: 10000
+total_customer_posts: 10000
