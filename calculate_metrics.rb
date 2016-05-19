@@ -8,7 +8,10 @@ def parse_activities(messages_json)
   messages_json['items'].flat_map do |msg|
     pure_msg = msg.except('activities')
 
+    # Collect activities from each message['activities']['items']. And inside each activity object, store extra field: 'root_message'
+    # (Please refer to file 'output/internal_activity_messages.yml' for messages_json structure)
     acts = msg['activities']['items'].map do |act|
+      # intentionally add 'root_message' field for post-processing of activity object
       act['root_message'] = pure_msg
       act
     end
@@ -34,11 +37,21 @@ end
 
 # Helper method for calculate the response time for each activity object
 def response_time(act)
+  # 1. for external reply outside engage, we'll add label to the target message
   if act['type'] == 'label'
+    # have to use activity['createdAt'], because reply is outside and thus not stored in activity object
     reply_time = act['createdAt']
+
+    # when replying to a comment externally, we will add label to the target_comment which is saved as act['reply'](for 'label' activity); otherwise target should be act['root_message']
     target_time = (act['reply'] || act['root_message'])['postedAt']
+
+
+  # 2. for internal reply inside engage
   else
-    reply_time = act['reply'] ? act['reply']['postedAt'] : act['createdAt'] # backward compatible for those old activities that hadn't saved 'reply'
+    reply_time = act['reply'] ? act['reply']['postedAt'] : act['createdAt'] # backward compatible for those old activities that hadn't saved 'reply', we have to use act['createdAt']
+
+
+    # when replying to a comment internally, the target_comment will be saved as activity['parentReply'](for 'respond' activity); otherwise target should be act['root_message']
     target_time = (act['parentReply'] || act['root_message'])['postedAt']
   end
 
@@ -74,7 +87,7 @@ end
 
 def response_ratio_metric(activities, total_count)
   user_response_ratios = group_by_user(activities).map do |user_id, acts|
-    [user_id, acts.size.to_f / total_count]
+    [user_id, acts.size.to_f / total_count]           # ratio == customer_response_count/total_customers_response_count
   end.to_h
   user_response_ratios.merge!('all' => activities.size.to_f/total_count)
 
