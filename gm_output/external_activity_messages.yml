@@ -1,7 +1,70 @@
 ---
-totalResults: 0
-count: 0
-itemsSize: 0
+totalResults: 1
+count: 1
+itemsSize: 1
 offset: 0
 limit: 100
-items: []
+items:
+- id: '1463620380004000000000020465887870001695'
+  type: post
+  resource:
+    id: 153399
+    resourceName: Yuriy-prod-topic
+    resourceType: listen_topic
+    listenSource: blog_site
+    externalLink: http://48hills.org/2016/05/18/allowing-housing-makes-property-expensive/#comment-81233
+  author:
+    name: E
+    authorImage: 
+    authorFollowersCount: 0
+    authorKlout: 0
+  postedAt: '2016-05-19T01:13:00Z'
+  status: active
+  body: "By: E.\nPretty sure a few days ago there was a post that showed, using hard
+    data, that SF housing rents could be explained by just three things: \n “It’s
+    a chart that almost perfectly predicts the San Francisco housing market using
+    only three variables: \n 1. The number of jobs located in San Francisco County.
+    \n2. The number of places in San Francisco County for people to live. \n3. The
+    total amount of money that is paid to everyone who works jobs in San Francisco
+    County.” \n Michael Andersen: A guy just transcribed 30 years of for-rent ads.
+    Here’s what it taught us about housing prices \n https://medium.com/@andersem/a-guy-just-transcribed-30-years-of-for-rent-ads-heres-what-it-taught-us-about-sf-housing-prices-bd61fd0e4ef9#.6tbfslnnd "
+  bundleId: '16415'
+  labels:
+  - Positive
+  - Awesomeness
+  - '0513'
+  - migration 5/21
+  favorited: false
+  activities:
+    totalResults: 1
+    hasMore: false
+    limit: 10
+    offset: 0
+    count: 1
+    items:
+    - id: 66539315
+      createdAt: '2016-05-19T05:19:53Z'
+      actor:
+        id: 14973
+        type: user
+        firstName: Yizhou
+        lastName: Jiang
+        email: leo.jiang@oracle.com
+      type: label
+      subType: add_label
+      description: '0513'
+      links:
+      - rel: canonical
+        href: https://public-api.vitrue.com/engage/v1/messages/1463620380004000000000020465887870001695/activities/66539315
+      - rel: self
+        href: https://public-api.vitrue.com/engage/v1/messages/1463620380004000000000020465887870001695/activities/66539315
+    links:
+    - rel: canonical
+      href: https://public-api.vitrue.com/engage/v1/messages/1463620380004000000000020465887870001695/activities
+    - rel: self
+      href: https://public-api.vitrue.com/engage/v1/messages/1463620380004000000000020465887870001695/activities?createdAtEnd=2016-05-30&createdAtStart=2016-05-01&labels=test3%2C0513&type=label&userIds=39471%2C35478%2C27415%2C22740%2C37967%2C27045%2C35156%2C18177%2C34744%2C27053%2C31319%2C14311%2C37654%2C14317%2C22661%2C27564%2C31826%2C26716%2C27611%2C29057%2C22156%2C34929%2C37647%2C23403%2C27545%2C23835%2C36249%2C42992%2C37634%2C40268%2C27617%2C40666%2C23943%2C30738%2C27588%2C40769%2C27086%2C26989%2C23728%2C38607%2C39792%2C25009%2C14973%2C26945%2C43330%2C33820%2C40973%2C31048%2C35054%2C33843%2C27084%2C13506%2C35235%2C42023%2C14970%2C27061%2C22171%2C31630%2C39926%2C33791%2C34916%2C33793%2C23799%2C28629%2C43322%2C31448%2C29382%2C38414%2C37094%2C38367%2C43087%2C22804%2C43335%2C33836%2C23793%2C27650%2C42389%2C27550%2C37703%2C30528%2C38801%2C22635%2C27044%2C40712%2C40003%2C28701%2C33764%2C18193%2C40216%2C39428%2C23734%2C33831%2C33798%2C27765%2C42656%2C38212%2C29175%2C27589%2C23810%2C42632
+  links:
+  - rel: canonical
+    href: https://public-api.vitrue.com/engage/v1/messages/1463620380004000000000020465887870001695
+  - rel: self
+    href: https://public-api.vitrue.com/engage/v1/messages/1463620380004000000000020465887870001695?bundleId=16415

@@ -75,7 +75,8 @@ productivity:
     26980 -- brandon.deview@gm.com: 0.03409090909090909
     35385 -- francheska.gjeloshaj@leoburnett.com: 0.01893939393939394
     36058 -- stephanie.benson@gm.com: 0.03409090909090909
-    all: 8.071969696969697
+    14973 -- leo.jiang@oracle.com: 0.003787878787878788
+    all: 8.075757575757576
 response_time:
   average_response_time:
     37094 -- josan.wade@vauxhall.co.uk: 2479563.1428571427
@@ -152,7 +153,8 @@ response_time:
     26980 -- brandon.deview@gm.com: 2577109.3333333335
     35385 -- francheska.gjeloshaj@leoburnett.com: 46898.4
     36058 -- stephanie.benson@gm.com: 135422.11111111112
-    all: 1492475.972782731
+    14973 -- leo.jiang@oracle.com: 14813.0
+    all: 1491782.8850844277
 response_ratio:
   response_ratio:
     37094 -- josan.wade@vauxhall.co.uk: 0.0154
@@ -229,4 +231,5 @@ response_ratio:
     26980 -- brandon.deview@gm.com: 0.0009
     35385 -- francheska.gjeloshaj@leoburnett.com: 0.0005
     36058 -- stephanie.benson@gm.com: 0.0009
-    all: 0.2131
+    14973 -- leo.jiang@oracle.com: 0.0001
+    all: 0.2132
