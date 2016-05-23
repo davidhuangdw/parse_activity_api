@@ -15,6 +15,7 @@ cp conf.yml.example conf.yml
  ```bash
 ruby fetch_bundle_users.rb
 # then, change 'user_ids' in conf.yml accordingly
+#   (will fetch for all bundle users when set as 'all_bundle_users', like 'conf.yml.prod')
 ```
 
 3. fetch internal_reply messages:
