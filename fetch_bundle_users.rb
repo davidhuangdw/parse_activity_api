@@ -1,5 +1,4 @@
 require_relative 'init'
-USERS_OUTPUT_PATH = 'output/users.yml'
 
 url = File.join(config[:api_url], config[:users_path])
         .gsub(/:account_id/, config[:bundle_id].to_s)

@@ -2,6 +2,8 @@ require 'yaml'
 require 'typhoeus'
 require 'active_support/all'
 
+USERS_OUTPUT_PATH = 'output/users.yml'
+USER_ID_QUERY_LIMIT = 100
 INTERNAL_REPLY_OUTPUT_PATH = 'output/internal_activity_messages.yml'
 EXTERNAL_REPLY_OUTPUT_PATH = 'output/external_activity_messages.yml'
 PER_REQUEST_LIMIT = 100
@@ -91,7 +93,7 @@ def expand_full_activities(msg, headers=default_headers)
   msg['activities'] = activities
 end
 
-def fetch_full_activity_messages(params, headers=default_headers)
+def fetch_single_query(params, headers=default_headers)
   url = File.join(config[:api_url], config[:messages_path])
 
   #Fetch all messages and the response stored in the messages array
@@ -100,6 +102,53 @@ def fetch_full_activity_messages(params, headers=default_headers)
   # called to fetch all the activities in case one message has more than 10 activities
   messages['items'].each(&method(:expand_full_activities))
 
+  puts messages['itemsSize']
+
   messages
+end
+
+def combine_multiple_query_results(query_results)
+  total_results = count = 0
+  items = []
+  query_results.map do |fetch|
+    total_results += fetch['totalResults']
+    count += fetch['count']
+    items.concat(fetch['items'])
+  end
+
+  {
+    'totalResults' => total_results,
+    'count' => count,
+    'itemsSize' => items.size,
+    'offset' => 0,
+    'limit' => PER_REQUEST_LIMIT,
+    'items' => items,
+  }
+end
+
+def fetch_full_activity_messages(original_params, headers=default_headers)
+  all_user_ids = original_params[:userIds].split(',')
+
+  queries = all_user_ids.each_slice(USER_ID_QUERY_LIMIT).map do |user_ids|
+    original_params.merge(userIds: user_ids.join(','))
+  end
+  query_results = queries.map{|params| fetch_single_query(params, headers)}
+  combine_multiple_query_results(query_results)
+end
+
+
+######### user_ids:
+
+def user_ids_from_output_yml(users_yml=USERS_OUTPUT_PATH)
+  users = YAML.load_file(users_yml)
+  users['items'].map{|user| user['id']}
+end
+
+def conf_user_ids
+  @conf_user_ids ||= if config[:user_ids] == 'all_bundle_users'
+    user_ids_from_output_yml
+  else
+    config[:user_ids]
+  end
 end
 

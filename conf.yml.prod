@@ -1,0 +1,19 @@
+api_url: https://public-api.vitrue.com/
+messages_path: /engage/v1/messages
+users_path: /admin/v1/accounts/:account_id/users
+
+token: e9d84883c2e9421f0c33ce77d5cf20f9b55dcecb90cb48a87825df16765b0f4f
+bundle_id: 6528 # General Motors Holdings. LLC
+user_ids: all_bundle_users
+
+activity_created_at_start: 2016-05-20
+activity_created_at_end: 2016-05-30
+activity_type: xxx
+
+labels:       # only for fetching external reply(e.g. ci_message reply)
+  - 'test3'
+  - '0513'
+
+response_time_goal: 300
+total_customer_posts: 10000
+

@@ -3,7 +3,7 @@ require_relative 'init'
 # Parameters for calling message API with activityType='respond'
 params = {
   bundleId: config[:bundle_id],
-  userIds: config[:user_ids].join(','),
+  userIds: conf_user_ids.join(','),
   activityCreatedAtStart: config[:activity_created_at_start].to_date.to_s,
   activityCreatedAtEnd: config[:activity_created_at_end].to_date.to_s,
   totalResults: true

@@ -29,11 +29,15 @@ end
 # Group the activities based on the user that take actions
 
 def group_by_user(activities)
-  activities.group_by{|act| act['actor']['id'] }
+  activities.group_by{|act| "#{act['actor']['id']} -- #{act['actor']['email']}" }
 end
 
 
 #### metrics calculation helpers:
+
+def post_time(message)
+  message['threadPostedAt'] || message['postedAt']    # use 'threadPostedAt' for direct_message
+end
 
 # Helper method for calculate the response time for each activity object
 def response_time(act)
@@ -43,16 +47,16 @@ def response_time(act)
     reply_time = act['createdAt']
 
     # when replying to a comment externally, we will add label to the target_comment which is saved as act['reply'](for 'label' activity); otherwise target should be act['root_message']
-    target_time = (act['reply'] || act['root_message'])['postedAt']
+    target_time = post_time(act['reply'] || act['root_message'])
 
 
   # 2. for internal reply inside engage
   else
-    reply_time = act['reply'] ? act['reply']['postedAt'] : act['createdAt'] # backward compatible for those old activities that hadn't saved 'reply', we have to use act['createdAt']
+    reply_time = act['reply'] ? post_time(act['reply']) : act['createdAt'] # backward compatible for those old activities that hadn't saved 'reply', we have to use act['createdAt']
 
 
     # when replying to a comment internally, the target_comment will be saved as activity['parentReply'](for 'respond' activity); otherwise target should be act['root_message']
-    target_time = (act['parentReply'] || act['root_message'])['postedAt']
+    target_time = post_time(act['parentReply'] || act['root_message'])
   end
 
   reply_time.to_time - target_time.to_time
