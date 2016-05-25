@@ -4,7 +4,7 @@ users_path: /admin/v1/accounts/:account_id/users
 
 token: 3103db6b7ef5bf186f901f6aba9d7d35ed9bf9ee415c4827ac55838e4be6ecab
 bundle_id: 4340
-user_ids:
+user_ids:           # when set to 'all_bundle_users', it will instead use user_ids in output/users.yml
   - 1519
   - 9188
 activity_created_at_start: 2016-04-20
